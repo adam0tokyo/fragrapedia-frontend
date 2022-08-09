@@ -7,10 +7,12 @@ function Fragrances() {
 
     //USEEFFECT
     useEffect(() => {
-        axios.get('/api/fragrances').then((res) => {
-            // console.log('AXIOS!:', res.data);
-            setFragrances(res.data);
-        });
+        axios
+            .get('https://fragrapedia-be.herokuapp.com/api/fragrances')
+            .then((res) => {
+                // console.log('AXIOS!:', res.data);
+                setFragrances(res.data);
+            });
     });
 
     //HELPER FUNCTIONS
