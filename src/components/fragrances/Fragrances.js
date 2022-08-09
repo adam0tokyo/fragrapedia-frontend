@@ -6,12 +6,14 @@ function Fragrances() {
     const [fragrances, setFragrances] = useState([]);
 
     //USEEFFECT
-    // axios.get('https://fragrapedia-be.herokuapp.com/api/fragrances).then((res) => {
     useEffect(() => {
-        axios.get('/api/fragrances').then((res) => {
-            // console.log('AXIOS!:', res.data);
-            setFragrances(res.data);
-        });
+        axios
+            .get('https://fragrapedia-be.herokuapp.com/api/fragrances')
+            .then((res) => {
+                // axios.get('/api/fragrances').then((res) => {
+                // console.log('AXIOS!:', res.data);
+                setFragrances(res.data);
+            });
     });
 
     //HELPER FUNCTIONS
