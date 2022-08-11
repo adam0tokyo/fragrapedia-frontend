@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Outlet, Link, Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Nav from './components/Nav';
+import Navigation from './components/Nav';
+import Home from "./components/Home";
+import NotFound from "./components/NotFound";
 import Fragrances from './components/fragrances/Fragrances';
 import SingleFragrance from './components/fragrances/SingleFragrance';
 import Users from './components/users/Users';
 import axios from 'axios';
+// import { FragranceProvider } from "./components/fragrances/FragranceContext";
+// import { createContext, useContext } from "react";
+// export const TempContext = createContext();
 
 function App() {
 
     //State Declarations
+    // const [fart, setFart] = useState("burrrr");
     const [fragrancesList, setFragrancesList] = useState([]);
-    const [currentView, setCurrentView] = useState("fragrances"); //return string to decide all or single photo
-    const [selectedFragrance, setSelectedFragrance] = useState("");
+    const [selectedFragrance, setSelectedFragrance] = useState("none");
+    // const [currentView, setCurrentView] = useState("fragrances"); //return string to decide all or single photo
 
 
     //useEffects
@@ -24,65 +30,40 @@ function App() {
                 // console.log('AXIOS!:', res.data);
                 setFragrancesList(res.data);
             });
-    });
+    }, []);
 
     //Handlers - helper functions
-    const Home = () => {
-        <div>
-            <h1>HOME page</h1>
-        </div>
-    };
 
     //Render
     return (
-            <div className="App">
-                
-                <Nav />
-                <Home />
-                <Fragrances 
-                fragrancesList = {fragrancesList}
-                setCurrentView={setCurrentView}
-                setSelectedFragrance={setSelectedFragrance}
-                />
-                {/* <Users /> */}
-                
-                <Link to="users">uSe</Link>
-                <SingleFragrance />
-            
-                {/* <Route path="/" element={<Nav />} /> */}
-                {/* <Route path="/users" element={<Users />} /> */}
-                {/* <Users /> */}
-            {/* <header className="App-header"> */}
-                {/* <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                >
-                Learn React
-            </a> */}
-            {/* </header> */}
-            {/* {currentView === "fragrances" ? (
-                <Fragrances 
-                fragrancesList = {fragrancesList}
-                setCurrentView={setCurrentView}
-                setSelectedFragrance={setSelectedFragrance}
-                />
-                ) : (
-                    <SingleFragrance
-                    setCurrentView={setCurrentView}
-                    setSelectedFragrance={setSelectedFragrance}
-                    selectedFragrance={selectedFragrance}
-                    />
-                )} */}
-            </div>
+        <div className="App">
+            {/* <TempContext.Provider value={fart}> */}
+                <Navigation />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/fragrances">
+                        <Route index element={<Fragrances 
+                            setFragrancesList={setFragrancesList}
+                            fragrancesList={fragrancesList}
+                            setSelectedFragrance={setSelectedFragrance}
+                            selectedFragrance={selectedFragrance}
+                        />} />
+                        <Route path=":fragName" element={<SingleFragrance 
+                            setFragrancesList={setFragrancesList}
+                            fragrancesList={fragrancesList}
+                            setSelectedFragrance={setSelectedFragrance}
+                            selectedFragrance={selectedFragrance}
+                        />} />
+                    </Route>
+                    <Route path="/Users" element={<Users />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            {/* </TempContext.Provider> */}
+        </div>
     );
 }
 
 
 
 export default App;
+

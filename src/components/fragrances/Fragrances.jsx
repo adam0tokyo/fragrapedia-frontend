@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect, useContext } from 'react';
+// import FragranceContext from './FragranceContext';
 // import axios from 'axios';
 // import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function Fragrances( { fragrancesList}) {
+function Fragrances({ fragrancesList, setFragrancesList, selectedFragrance, setSelectedFragrance }) {
+
     //STATE
-    // const [fragrances, setFragrances] = useState([]);
-
-    //USEEFFECT
+    
+    //useEffects
     // useEffect(() => {
     //     axios
     //         .get('https://fragrapedia-be.herokuapp.com/api/fragrances')
     //         .then((res) => {
-    //             // axios.get('/api/fragrances').then((res) => {
-    //             // console.log('AXIOS!:', res.data);
-    //             setFragrances(res.data);
-    //         });
+    //             setFragrancesList(res.data);
+    //         }, []);
     // });
 
     //HELPER FUNCTIONS
-    
+    // const { testItem } = useContext(FragranceContext);
 
     return (
         <div className="Fragrances">
             <h1>Fragrances</h1>
+            
             {fragrancesList.map((frag) => (
                 <Link
                     style={{ display: "block", marging: "1rem 0"}}
@@ -34,7 +34,7 @@ function Fragrances( { fragrancesList}) {
                 </Link>
                 
             ))}
-            {/* <ul>
+            <ul>
                 {fragrancesList.map((fragrance) => {
                     return (
                         <li key={fragrance.id.toString()}>
@@ -45,8 +45,7 @@ function Fragrances( { fragrancesList}) {
                         </li>
                     );
                 })}
-            </ul> */}
-            <Outlet />
+            </ul>
         </div>
     );
 }
