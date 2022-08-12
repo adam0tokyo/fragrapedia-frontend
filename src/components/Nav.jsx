@@ -13,6 +13,12 @@ function Navigation() {
                 <Link to="/fragrances">Fragrances</Link>
             </li>
             <li>
+                <Link to="/add_fragrance">Add Fragrance</Link>
+            </li>
+            <li>
+                <Link to="/edit_fragrance">Edit Fragrance</Link>
+            </li>
+            <li>
                 <Link to="/Users">Users</Link>
             </li>
         </ul>
