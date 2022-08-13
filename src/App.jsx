@@ -33,7 +33,7 @@ function App() {
                 // console.log('AXIOS!:', res.data);
                 setFragrancesList(res.data);
             });
-    }, [updatePlease]);
+    }, []);
 
     //Handlers - helper functions
     

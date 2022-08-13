@@ -15,11 +15,11 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
     // const [imgUrl, setImgUrl] = useState("");
 
     //USEEFFECT
-    useEffect(() => {
-        const findTargetFragrance = async (target) => {
-            setSelectedFragrance(fragrancesList.find( e => e.list_name === target));           
-        }
-        findTargetFragrance(params.fragName)
+    // useEffect(() => {
+    //     const findTargetFragrance = async (target) => {
+    //         setSelectedFragrance(fragrancesList.find( e => e.list_name === target));           
+    //     }
+    //     findTargetFragrance(params.fragName)
     //         // .then((res) => {
     //         //     console.log("selectedFragrance!", selectedFragrance);
     //         //     return res;
@@ -33,7 +33,13 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
     //     //     }, []);
 
 
-    }, []);
+    // }, []);
+
+    //no useEffect ver.
+    const findTargetFragrance = async (target) => {
+        setSelectedFragrance(fragrancesList.find( e => e.list_name === target));           
+    }
+    findTargetFragrance(params.fragName)
 
     
 
