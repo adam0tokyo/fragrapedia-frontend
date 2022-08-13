@@ -36,10 +36,10 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
     // }, []);
 
     //no useEffect ver.
-    const findTargetFragrance = async (target) => {
-        setSelectedFragrance(fragrancesList.find( e => e.list_name === target));           
-    }
-    findTargetFragrance(params.fragName)
+    // const findTargetFragrance = async (target) => {
+    //     setSelectedFragrance(fragrancesList.find( e => e.list_name === target));           
+    // }
+    // findTargetFragrance(params.fragName)
 
     
 
