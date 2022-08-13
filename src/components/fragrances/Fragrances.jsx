@@ -3,6 +3,8 @@
 // import axios from 'axios';
 // import React from "react";
 import { Link } from "react-router-dom";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
 
 function Fragrances({ fragrancesList, setFragrancesList, selectedFragrance, setSelectedFragrance }) {
 
@@ -19,6 +21,32 @@ function Fragrances({ fragrancesList, setFragrancesList, selectedFragrance, setS
 
     //HELPER FUNCTIONS
     // const { testItem } = useContext(FragranceContext);
+
+    // const storage = getStorage();
+    // getDownloadURL(ref(storage, `images/Tom-Ford-Tobacco-Vanille-2007`))
+    //     .then((url) => {
+    //         // const img = document.getElementById('myimg');
+    //         // img.setAttribute('src', url)
+    //         console.log(url);
+    //     }).catch((error) => {
+    //         console.error(error)
+    //     });
+    const storage = getStorage()
+
+    const setUpImage = function(lName) {
+        getDownloadURL(ref(storage, `images/${lName}`))
+        .then((url) => {
+            const img = document.getElementById(`image-${lName}`);
+            img.setAttribute('src', url);
+          })
+          .catch((error) => {
+            console.error(error);
+        });
+        return (<img id={"image-"+lName} alt={lName} />);
+    }
+    
+
+
 
     return (
         <div className="Fragrances">
@@ -42,6 +70,8 @@ function Fragrances({ fragrancesList, setFragrancesList, selectedFragrance, setS
                             {fragrance.house}
                             {fragrance.collection}
                             {fragrance.release}
+                            {setUpImage(fragrance.list_name)}
+                            {/* {<img id={"image-"+fragrance.list_name} alt={fragrance.list_name} />} */}
                         </li>
                     );
                 })}

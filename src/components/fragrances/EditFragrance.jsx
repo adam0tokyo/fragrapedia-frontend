@@ -1,9 +1,12 @@
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
-// import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { TempContext } from '../../App'
 import axios from "axios";
 import  { useState } from 'react';
+import { Button } from '@mui/material';
+import { storage } from '../firebase';
+import { ref, uploadBytes, getStorage, deleteObject } from 'firebase/storage';
 
 function EditFragrance({ setFragrancesList, fragrancesList, selectedFragrance, setSelectedFragrance, updatePlease, setUpdatePlease }) {
     
@@ -43,6 +46,8 @@ function EditFragrance({ setFragrancesList, fragrancesList, selectedFragrance, s
     const collectionUpdate = e => { setCollection(e.target.value)};
     const releaseUpdate = e => { setRelease(e.target.value)};
     const notesUpdate = e => { setNotes(e.target.value)};
+    const [imageUpload, setImageUpload] = useState(null);
+
 
     const axiosSubmit = async (e) => {
         e.preventDefault();
@@ -78,6 +83,23 @@ function EditFragrance({ setFragrancesList, fragrancesList, selectedFragrance, s
           setUpdatePlease(updatePlease += 1);
           //TODO redirect on successful delete
     }
+
+    const uploadImage = async () => {
+        if (!imageUpload) return;
+        const imageRef = ref(storage, `images/${listName}`);
+        await 
+        await uploadBytes(imageRef, imageUpload).then(() => {
+            console.log("image uploaded, imageRef");
+        })
+    };
+    //TODO sort uploads for edited images
+    //TODO click() event on fragrances section on delete
+    // firebase api delete call if a new image is uploaded on edit
+    // firebase api delete call on deleted fragrance
+    // fix refresh on single fragrance page
+    //disallow users from making their own list item section (programatically create it)
+
+
     
 
     //TODO add form validation, remove list-form and auto generate it from other fields -or- use ID for endpoints
@@ -114,7 +136,12 @@ function EditFragrance({ setFragrancesList, fragrancesList, selectedFragrance, s
                 <button>Submit</button>
             </form>
             <button className="deleteFragranceButton" onClick={axiosDelete}>Delete Fragrance</button>
-            
+            <Button component={Link} to={`/fragrances/${selectedFragrance.list_name}`}>Back</Button>
+            <div className="imageUpload">
+                <input type="file" onChange={e => {setImageUpload(e.target.files[0])}} />
+                <button onClick={uploadImage}>Upload Image</button>
+            </div>
+        
         </div>
     );
 }

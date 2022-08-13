@@ -3,7 +3,9 @@
 // import { useParams } from "react-router-dom";
 // import { TempContext } from '../../App'
 import axios from "axios";
-import  { useState } from 'react';
+import  { useState, useEffect } from 'react';
+// import { storage } from '../firebase';
+import { ref, getStorage, uploadBytes, getDownloadURL, listAll } from 'firebase/storage';
 
 function AddFragrance({ setFragrancesList, fragrancesList, selectedFragrance, setSelectedFragrance, updatePlease, setUpdatePlease }) {
     
@@ -17,6 +19,9 @@ function AddFragrance({ setFragrancesList, fragrancesList, selectedFragrance, se
     const [house, setHouse] = useState("");
     const [release, setRelease] = useState("");
     const [notes, setNotes] = useState("");
+
+    const [imageUpload, setImageUpload] = useState(null);
+    const [imageList, setImageList] = useState([]);
 
     //USEEFFECT
     // useEffect(() => {
@@ -65,6 +70,38 @@ function AddFragrance({ setFragrancesList, fragrancesList, selectedFragrance, se
           });
         setUpdatePlease(updatePlease += 1);
     }
+
+    const storage = getStorage();
+    
+
+    const uploadImage = async () => {
+        if (!imageUpload) return;
+        console.log("uploading with ref", `images/${listName}`, "uploaded:", imageUpload);
+        const imageRef = ref(storage, `images/${listName}`);
+        uploadBytes(imageRef, imageUpload);
+        // .then(() => {
+        //     console.log("image uploaded", imageRef,getDownloadURL(imageRef));
+        // })
+        //this didn't work either..
+        // .then((snapshot) => {
+        //     snapshot.ref.getDownloadURL().then((url) => {
+        //       console.log("downloadURL", url);
+        //     });
+        // });
+    };
+
+    
+    // useEffect(() => {
+    //     const imageListRef = ref(storage, "images/");
+    //     listAll(imageListRef).then((res) => {
+    //         console.log(res);
+    //         res.items.forEach((i)=> {
+    //             getDownloadURL(i).then((iURL) => {
+    //                 setImageList((prev) => [...prev, iURL]);
+    //             })
+    //         })
+    //     })
+    // }, [])
     
 
     //TODO add form validation, remove list-form and auto generate it from other fields -or- use ID for endpoints
@@ -99,6 +136,10 @@ function AddFragrance({ setFragrancesList, fragrancesList, selectedFragrance, se
                 <button type="reset">Reset</button>
                 <button>Submit</button>
             </form>
+            <div className="imageUpload">
+                <input type="file" onChange={e => {setImageUpload(e.target.files[0])}} />
+                <button onClick={uploadImage}>Upload Image</button>
+            </div>
             
         </div>
     );
