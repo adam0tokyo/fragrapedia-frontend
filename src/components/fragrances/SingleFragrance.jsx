@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 import { useParams, Link } from "react-router-dom";
 // import { TempContext } from '../../App'
-import axios from "axios";
+// import axios from "axios";
 import { Button } from '@mui/material';
 
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
@@ -16,22 +16,22 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
     // const [imgUrl, setImgUrl] = useState("");
 
     //USEEFFECT
-    useEffect(() => {
-        findTargetFragrance(params.fragName)
-            // .then((res) => {
-            //     console.log("selectedFragrance!", selectedFragrance);
-            //     return res;
-            // })
+    // useEffect(() => {
+    //     findTargetFragrance(params.fragName)
+    //         // .then((res) => {
+    //         //     console.log("selectedFragrance!", selectedFragrance);
+    //         //     return res;
+    //         // })
     
-        //Keep axios call option for case keeping the whole db in state is too expesnive
-        // axios
-        //     .get(`https://fragrapedia-be.herokuapp.com/api/fragrances/${params.fragName}`)
-        //     .then((res) => {
-        //         setSelectedFragrance(res.data[0]);
-        //     }, []);
+    //     //Keep axios call option for case keeping the whole db in state is too expesnive
+    //     // axios
+    //     //     .get(`https://fragrapedia-be.herokuapp.com/api/fragrances/${params.fragName}`)
+    //     //     .then((res) => {
+    //     //         setSelectedFragrance(res.data[0]);
+    //     //     }, []);
 
 
-    }, []);
+    // }, []);
 
 
     const findTargetFragrance = async (target) => {
@@ -63,6 +63,7 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
     //HELPER FUNCTIONS
     let params = useParams();
     const storage = getStorage();
+    findTargetFragrance(params.fragName);
     
     
     
@@ -87,16 +88,27 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
     //     })
     // }
 
-    getDownloadURL(ref(storage, `images/${params.fragName}`))
-        .then((url) => {
-            const img = document.getElementById(`image-${params.fragName}`);
-            img.setAttribute('src', url);
-          })
-          .catch((error) => {
-            console.error(error);
-        });
+    // getDownloadURL(ref(storage, `images/${params.fragName}`))
+    //     .then((url) => {
+    //         const img = document.getElementById(`image-${params.fragName}`);
+    //         img.setAttribute('src', url);
+    //       })
+    //       .catch((error) => {
+    //         console.error(error);
+    //     });
     
-
+        
+    const setUpImage = function(lName) {
+        getDownloadURL(ref(storage, `images/${lName}`))
+        .then((url) => {
+                const img = document.getElementById(`image-${lName}`);
+                img.setAttribute('src', url);
+        })
+              .catch((error) => {
+                console.error(error);
+        });
+            return (<img id={"image-"+lName} alt={lName} />);
+    }
 
 
     
@@ -114,7 +126,8 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
                 <li>{selectedFragrance.notes|| "empty"}</li>
                 <li>{selectedFragrance.added || "empty"}</li>
                 {selectedFragrance.concentration ? (<li>{selectedFragrance.concentration}</li>) : <></>}
-                <img id={"image-"+params.fragName} alt="test" />
+                {/* <img id={"image-"+params.fragName} alt="test" /> */}
+                {setUpImage(selectedFragrance.list_name)}
 
             </ul>
             {/* <h4>{passedFart}</h4> */}

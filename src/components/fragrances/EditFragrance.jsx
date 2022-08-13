@@ -6,7 +6,8 @@ import axios from "axios";
 import  { useState } from 'react';
 import { Button } from '@mui/material';
 import { storage } from '../firebase';
-import { ref, uploadBytes, getStorage, deleteObject } from 'firebase/storage';
+import { ref, uploadBytes } from 'firebase/storage';
+// import { ref, uploadBytes, getStorage, deleteObject } from 'firebase/storage';
 
 function EditFragrance({ setFragrancesList, fragrancesList, selectedFragrance, setSelectedFragrance, updatePlease, setUpdatePlease }) {
     

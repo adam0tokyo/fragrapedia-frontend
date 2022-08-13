@@ -3,9 +3,9 @@
 // import { useParams } from "react-router-dom";
 // import { TempContext } from '../../App'
 import axios from "axios";
-import  { useState, useEffect } from 'react';
+import  { useState } from 'react';
 // import { storage } from '../firebase';
-import { ref, getStorage, uploadBytes, getDownloadURL, listAll } from 'firebase/storage';
+import { ref, getStorage, uploadBytes } from 'firebase/storage';
 
 function AddFragrance({ setFragrancesList, fragrancesList, selectedFragrance, setSelectedFragrance, updatePlease, setUpdatePlease }) {
     
@@ -21,7 +21,7 @@ function AddFragrance({ setFragrancesList, fragrancesList, selectedFragrance, se
     const [notes, setNotes] = useState("");
 
     const [imageUpload, setImageUpload] = useState(null);
-    const [imageList, setImageList] = useState([]);
+    // const [imageList, setImageList] = useState([]);
 
     //USEEFFECT
     // useEffect(() => {
@@ -51,7 +51,7 @@ function AddFragrance({ setFragrancesList, fragrancesList, selectedFragrance, se
 
     const axiosSubmit = async (e) => {
         e.preventDefault();
-        console.log("YAY", listName, displayName, house, collection, release, notes);
+        // console.log("YAY", listName, displayName, house, collection, release, notes);
         let newFragObj = {
             list_name: listName,
             display_name: displayName,
@@ -60,15 +60,15 @@ function AddFragrance({ setFragrancesList, fragrancesList, selectedFragrance, se
             release: release,
             notes: notes
         };
-        console.log("SHOW IT", newFragObj);
+        // console.log("SHOW IT", newFragObj);
         await axios.post('https://fragrapedia-be.herokuapp.com/api/fragrances', newFragObj)
           .then(function (response) {
-            console.log(response);
+            // console.log(response);
           })
           .catch(function (error) {
             console.log(error);
           });
-        setUpdatePlease(updatePlease += 1);
+        // setUpdatePlease(updatePlease += 1);
     }
 
     const storage = getStorage();
