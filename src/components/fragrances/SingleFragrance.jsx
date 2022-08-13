@@ -1,10 +1,9 @@
-// import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 import { useParams, Link } from "react-router-dom";
 // import { TempContext } from '../../App'
 // import axios from "axios";
 import { Button } from '@mui/material';
-
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 
@@ -16,8 +15,11 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
     // const [imgUrl, setImgUrl] = useState("");
 
     //USEEFFECT
-    // useEffect(() => {
-    //     findTargetFragrance(params.fragName)
+    useEffect(() => {
+        const findTargetFragrance = async (target) => {
+            setSelectedFragrance(fragrancesList.find( e => e.list_name === target));           
+        }
+        findTargetFragrance(params.fragName)
     //         // .then((res) => {
     //         //     console.log("selectedFragrance!", selectedFragrance);
     //         //     return res;
@@ -31,23 +33,26 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
     //     //     }, []);
 
 
-    // }, []);
+    }, []);
+
+    
 
 
-    const findTargetFragrance = async (target) => {
-        // console.log(selectedFragrance);
-        // if (fragrancesList.length < 1) {
-        //     await axios
-        //         .get('https://fragrapedia-be.herokuapp.com/api/fragrances')
-        //         .then((res) => {
-        //             // axios.get('/api/fragrances').then((res) => {
-        //                 // console.log('AXIOS!:', res.data);
-        //                 setFragrancesList(res.data);
-        //             });
-        // }
-        await setSelectedFragrance(fragrancesList.find( e => e.list_name === target));
+    //old findtarget
+    // const findTargetFragrance = async (target) => {
+    //     // console.log(selectedFragrance);
+    //     // if (fragrancesList.length < 1) {
+    //     //     await axios
+    //     //         .get('https://fragrapedia-be.herokuapp.com/api/fragrances')
+    //     //         .then((res) => {
+    //     //             // axios.get('/api/fragrances').then((res) => {
+    //     //                 // console.log('AXIOS!:', res.data);
+    //     //                 setFragrancesList(res.data);
+    //     //             });
+    //     // }
+    //     setSelectedFragrance(fragrancesList.find( e => e.list_name === target));
                 
-    }
+    // }
 
 // inifnite loops, but adding the conditional array throws an error. hmm
     // useEffect(() => {
@@ -63,7 +68,7 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
     //HELPER FUNCTIONS
     let params = useParams();
     const storage = getStorage();
-    findTargetFragrance(params.fragName);
+    // findTargetFragrance(params.fragName);
     
     
     
