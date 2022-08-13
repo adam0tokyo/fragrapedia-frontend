@@ -13,6 +13,7 @@ import axios from 'axios';
 // import { FragranceProvider } from "./components/fragrances/FragranceContext";
 // import { createContext, useContext } from "react";
 // export const TempContext = createContext();
+import { Container } from '@mui/material';
 
 function App() {
 
@@ -25,15 +26,15 @@ function App() {
 
 
     //useEffects
-    useEffect(() => {
-        axios
-            .get('https://fragrapedia-be.herokuapp.com/api/fragrances')
-            .then((res) => {
-                // axios.get('/api/fragrances').then((res) => {
-                // console.log('AXIOS!:', res.data);
-                setFragrancesList(res.data);
-            });
-    }, []);
+    // useEffect(() => {
+    //     axios
+    //         .get('https://fragrapedia-be.herokuapp.com/api/fragrances')
+    //         .then((res) => {
+    //             // axios.get('/api/fragrances').then((res) => {
+    //             // console.log('AXIOS!:', res.data);
+    //             setFragrancesList(res.data);
+    //         });
+    // }, [updatePlease]);
 
     //Handlers - helper functions
     
@@ -43,6 +44,7 @@ function App() {
         <div className="App">
             {/* <TempContext.Provider value={fart}> */}
                 <Navigation />
+                <Container >
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/fragrances">
@@ -51,6 +53,7 @@ function App() {
                             fragrancesList={fragrancesList}
                             setSelectedFragrance={setSelectedFragrance}
                             selectedFragrance={selectedFragrance}
+                            updatePlease={updatePlease}
                         />} />
                         <Route path=":fragName" element={<SingleFragrance 
                             setFragrancesList={setFragrancesList}
@@ -79,7 +82,9 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             {/* </TempContext.Provider> */}
+            </Container>
         </div>
+        
     );
 }
 

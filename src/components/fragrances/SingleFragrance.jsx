@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from "react-router-dom";
 // import { TempContext } from '../../App'
 // import axios from "axios";
-import { Button } from '@mui/material';
+import { Button, Card } from '@mui/material';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 
@@ -14,12 +14,12 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
     // const passedFart = useContext(TempContext);
     // const [imgUrl, setImgUrl] = useState("");
 
-    //USEEFFECT
-    // useEffect(() => {
-    //     const findTargetFragrance = async (target) => {
-    //         setSelectedFragrance(fragrancesList.find( e => e.list_name === target));           
-    //     }
-    //     findTargetFragrance(params.fragName)
+    // USEEFFECT
+    useEffect(() => {
+        const findTargetFragrance = async (target) => {
+            setSelectedFragrance(fragrancesList.find( e => e.list_name === target));           
+        }
+        findTargetFragrance(params.fragName)
     //         // .then((res) => {
     //         //     console.log("selectedFragrance!", selectedFragrance);
     //         //     return res;
@@ -33,7 +33,7 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
     //     //     }, []);
 
 
-    // }, []);
+    }, []);
 
     //no useEffect ver.
     // const findTargetFragrance = async (target) => {
@@ -127,7 +127,7 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
 
     return (
         <div className="SingleFragrance">
-            <h2>A THING: {params.fragName|| "empty"}</h2>
+            <h2>{params.fragName|| "empty"}</h2>
             <h3>{selectedFragrance.display_name|| "empty"}</h3>
             <ul>
                 <li>{selectedFragrance.list_name|| "empty"}</li>
@@ -135,12 +135,12 @@ function SingleFragrance({ fragrancesList, setFragrancesList, selectedFragrance,
                 {selectedFragrance.collection ? (<li>{selectedFragrance.collection}</li>) : <></>}
                 <li>{selectedFragrance.release|| "empty"}</li>
                 <li>{selectedFragrance.notes|| "empty"}</li>
-                <li>{selectedFragrance.added || "empty"}</li>
+                {/* <li>{selectedFragrance.added || "empty"}</li> */}
                 {selectedFragrance.concentration ? (<li>{selectedFragrance.concentration}</li>) : <></>}
                 {/* <img id={"image-"+params.fragName} alt="test" /> */}
                 {setUpImage(selectedFragrance.list_name)}
-
             </ul>
+            
             {/* <h4>{passedFart}</h4> */}
             <Button component={Link} to="/edit_fragrance">Edit Fragrance</Button>
             <Button component={Link} to="/fragrances">Back</Button>

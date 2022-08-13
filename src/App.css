@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
 .App {
     text-align: center;
+}
+.logo {
+    font-size: 4rem;
+    font-family: 'Amatic SC';
 }
 
 nav {
@@ -7,7 +12,7 @@ nav {
     justify-content: space-around;
     align-items: center;
     min-height: 10vh;
-    background-color: rgb(77, 178, 178);
+    background-color: rgb(233, 139, 57);
     color: white;
 }
 

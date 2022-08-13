@@ -1,23 +1,26 @@
-// import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // import FragranceContext from './FragranceContext';
-// import axios from 'axios';
+import axios from 'axios';
 // import React from "react";
 import { Link } from "react-router-dom";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 
-function Fragrances({ fragrancesList, setFragrancesList, selectedFragrance, setSelectedFragrance }) {
+
+function Fragrances({ fragrancesList, setFragrancesList, selectedFragrance, setSelectedFragrance, updatePlease }) {
 
     //STATE
     
     //useEffects
-    // useEffect(() => {
-    //     axios
-    //         .get('https://fragrapedia-be.herokuapp.com/api/fragrances')
-    //         .then((res) => {
-    //             setFragrancesList(res.data);
-    //         }, []);
-    // });
+    useEffect(() => {
+        axios
+            .get('https://fragrapedia-be.herokuapp.com/api/fragrances')
+            .then((res) => {
+                // axios.get('/api/fragrances').then((res) => {
+                // console.log('AXIOS!:', res.data);
+                setFragrancesList(res.data);
+            });
+    }, [updatePlease]);
 
     //HELPER FUNCTIONS
     // const { testItem } = useContext(FragranceContext);

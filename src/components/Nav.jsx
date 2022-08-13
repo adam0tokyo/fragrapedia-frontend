@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 function Navigation() {
   return (
     <nav>
-        <h3 className="logo">logo</h3>
+        <span className="logo">FRAGRAPEDIA</span>
         <ul className="nav-links">
-            <li>
+            {/* <li>
                 <Link to="/">Home</Link>
-            </li>
+            </li> */}
             <li>
                 <Link to="/fragrances">Fragrances</Link>
             </li>
